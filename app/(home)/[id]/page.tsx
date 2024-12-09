@@ -3,21 +3,16 @@ import DeleteButton from "@/app/component/deleteButton";
 import { useBookStore } from "@/app/zustand";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export default function BookDetail({ params }: { params: Promise<{ id: string }> }) {
-    const [id, setId] = useState<string | null>(null);
+    const { id } = React.use(params)
+  
+    const book = useBookStore(state => state.books.find(i => i.id === +id!))
 
-    useEffect(() => {
-    // params에서 id 값을 비동기적으로 가져오기
-        params.then((p) => setId(p.id));
-    }, [params]);
-
-    const book = useBookStore(state => state.books.find(i => i.id === +id!));
-
-    // id가 없거나 숫자가 아니면 404 처리
-    if (id === null || isNaN(+id) || !book) {
-        return notFound();
+    // id가 숫자가 아니라면 404 처리
+    if (isNaN(+id) || !book) {
+      return notFound();
     }
     return(
         <>
