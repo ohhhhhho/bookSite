@@ -30,7 +30,7 @@ export default function Home() {
     currentPage * BOOKS_PER_PAGE
   )
   // 페이지 변경 이벤트
-  const onClickPageChange = (newPage: number) => {
+  const onClickPageChange: (newPage: number) => void = (newPage: number) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage)
     }

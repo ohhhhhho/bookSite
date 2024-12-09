@@ -3,18 +3,21 @@ import DeleteButton from "@/app/component/deleteButton";
 import { useBookStore } from "@/app/zustand";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-export default function BookDetail({params}:{params:Promise<{id:string}>}){
-    const {id} = React.use(params) 
-    //id가 숫자가 아니라면 notFound
-    if(isNaN(+id)){
-        return notFound()
-    }
-    //현재 id값과 일치하는 book객체 찾기
-    const book = useBookStore(state => state.books.find(i => i.id === +id))
-    if(!book){
-        return notFound()
+export default function BookDetail({ params }: { params: Promise<{ id: string }> }) {
+    const [id, setId] = useState<string | null>(null);
+
+    useEffect(() => {
+    // params에서 id 값을 비동기적으로 가져오기
+        params.then((p) => setId(p.id));
+    }, [params]);
+
+    const book = useBookStore(state => state.books.find(i => i.id === +id!));
+
+    // id가 없거나 숫자가 아니면 404 처리
+    if (id === null || isNaN(+id) || !book) {
+        return notFound();
     }
     return(
         <>
@@ -27,7 +30,7 @@ export default function BookDetail({params}:{params:Promise<{id:string}>}){
             </div>
             <div className="flex flex-row gap-4 mt-6 *:text-white *:ring-1 *:ring-neutral-400 *:py-2 *:px-4 *:text-xs">
                 <Link href={`${id}/update`}>수정하기</Link>
-                <DeleteButton bookId={book?.id!}/>
+                <DeleteButton bookId={book?.id}/>
             </div>
         </div>
         </>
