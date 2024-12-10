@@ -54,7 +54,7 @@ export default function AddBook(){
                 minMessage="수량은 1 이상이어야 합니다."
                 error={errors.quantity}
             />
-            <button className="block ring-1 ring-neutral-200 py-3 px-10 text-center hover:bg-white hover:text-black">수정하기</button>
+            <button className="block ring-1 ring-neutral-200 py-3 px-10 text-center hover:bg-white hover:text-black">추가하기</button>
         </form>
         </>
     )
