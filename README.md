@@ -3,7 +3,7 @@
 2. bookData를 공통적으로 사용하기 위해 Zustand를 이용해 사용하였습니다.
 
 ### 배포 사이트
-<book-site-jet.vercel.app>
+<https://book-site-jet.vercel.app>
 
 ### Home
 1. 책 목록 구현 -> 페이지네이션 -> 검색 순서대로 작업하였습니다.
